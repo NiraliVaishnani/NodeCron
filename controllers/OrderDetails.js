@@ -2,6 +2,7 @@ const OrderTable = require("../models/OrderDetails");
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const cron = require("node-cron");
+const moment = require("moment");
 const ProductDetails = require('../models/ProductDetails')
 const OrderTransaction = require('../models/OrderTransaction')
 // async function sendpendingordersdetails(email) {
@@ -160,10 +161,19 @@ async function sendEmailsToUsers() {
                 };
                 const info = await transporter.sendMail(mailOptions);
                 console.log(`Email sent to ${email}:`, info.response);
+                // const currentDate = new Date().toISOString(); // Convert Date to ISO string
+                // await OrderTable.update({ SendAt: currentDate }, { where: { id: orderRow.id } });
+                // Format the current date in the desired format
+                const currentDate = moment().format("YYYY-MM-DD HH:mm:ss");
+
+                // Update SendAt with the formatted date
+                await OrderTable.update({ SendAt: currentDate }, { where: { id: orderRow.id } });
+                // await OrderTable.update({ SendAt: new Date() }, { where: { id: orderRow.id } });
             }
         }
     } catch (error) {
         console.log("Error sending emails:", error);
+
     }
 }
 
