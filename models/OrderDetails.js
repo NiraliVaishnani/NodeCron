@@ -28,5 +28,6 @@ const OrderTable = sequelize.define(
 
     }
 );
+OrderTable.sequelize.sync()
 
 module.exports = OrderTable;

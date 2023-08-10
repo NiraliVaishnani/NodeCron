@@ -30,5 +30,5 @@ const ProductDetails = sequelize.define(
 
     }
 );
-
+ProductDetails.sequelize.sync()
 module.exports = ProductDetails;

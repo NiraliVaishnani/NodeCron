@@ -31,5 +31,6 @@ const OrderTransaction = sequelize.define(
 
     }
 );
+OrderTransaction.sequelize.sync()
 
 module.exports = OrderTransaction;
